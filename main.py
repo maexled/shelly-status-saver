@@ -1,5 +1,6 @@
 import schedule
-import time, datetime
+import time
+from datetime import datetime, timezone, timedelta
 import requests
 import json
 import os
@@ -37,7 +38,7 @@ class MystromResult(Base):
   ws = Column(Float)
   relay = Column(Integer)
   temperature = Column(Float)
-  date = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
+  date = Column(DateTime(timezone=True), default=datetime.now)
 
   # Lets us print out a user object conveniently.
   def __repr__(self):
@@ -59,10 +60,6 @@ def request_data_and_store(device):
 
     session.add(mystrom_result, device)
     session.commit()
-
-    result_query = session.query(MystromResult)
-    for result in result_query.all():
-        print(result)
 
 def json_result_to_object(json, device):
     return MystromResult(device_id=device.id, power=json["power"], ws=json["Ws"], relay=json["relay"], temperature=json["temperature"])
