@@ -2,6 +2,7 @@ import schedule
 import time, datetime
 import requests
 import json
+import os
 
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 import sqlalchemy as db
@@ -16,8 +17,8 @@ class MystromDevice(Base):
 
   id = Column(Integer, primary_key=True)
 
-  name = Column(String)
-  ip = Column(String)
+  name = Column(String(16))
+  ip = Column(String(16))
 
   # Lets us print out a user object conveniently.
   def __repr__(self):
@@ -67,18 +68,15 @@ def json_result_to_object(json, device):
     return MystromResult(device_id=device.id, power=json["power"], ws=json["Ws"], relay=json["relay"], temperature=json["temperature"])
 
 if __name__ == '__main__':
-    engine = db.create_engine('sqlite:///:memory:')
+    sql_url = os.environ['SQL_URL']
+    engine = db.create_engine(sql_url)
     connection = engine.connect()
 
     Base.metadata.create_all(engine) 
 
     Session = sessionmaker(bind=engine)
     session = Session()
-
-    device_pc_setup = MystromDevice(name="PC-Setup", ip="192.168.0.205")
-    session.add(device_pc_setup)
-    session.commit()
-
+    
     devices = get_devices()
 
     schedule.every(1).minutes.do(trigger)
