@@ -4,7 +4,7 @@ import requests
 import json
 import os
 
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey
 import sqlalchemy as db
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref, sessionmaker, joinedload
@@ -33,10 +33,10 @@ class MystromResult(Base):
 
   device_id = Column(Integer, ForeignKey('devices.id'))
 
-  power = Column(Integer)
-  ws = Column(Integer)
+  power = Column(Float)
+  ws = Column(Float)
   relay = Column(Integer)
-  temperature = Column(Integer)
+  temperature = Column(Float)
   date = Column(DateTime(timezone=True), default=datetime.datetime.utcnow)
 
   # Lets us print out a user object conveniently.
