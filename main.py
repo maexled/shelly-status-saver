@@ -8,7 +8,7 @@ import threading
 from base import Base, session_factory
 
 from models.mystrom_device import MystromDevice
-from models. mystrom_result import MystromResult
+from models.mystrom_result import MystromResult
 
 @schedule.repeat(schedule.every(1).minutes)
 def trigger():
