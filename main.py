@@ -10,11 +10,11 @@ from models.mystrom_result import MystromResult
 
 @schedule.repeat(schedule.every(1).minutes)
 def trigger():
-    for device in devices:
+    for device in get_active_devices():
         request_data_and_store(device)
 
-def get_devices():
-    device_query = session.query(MystromDevice)
+def get_active_devices():
+    device_query = session.query(MystromDevice).filter(MystromDevice.active == True)
     return device_query.all()
 
 def request_data_and_store(device):
@@ -43,7 +43,6 @@ def request_data_and_store(device):
 
 if __name__ == '__main__':
     session = session_factory()
-    devices = get_devices()
 
     while True:
         # Checks whether a scheduled task
