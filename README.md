@@ -14,7 +14,7 @@ python -m main
 ### With Docker Container
 ```sh
 docker run \
-    --name mystrom-python \
+    --name shelly-status-saver \
     -e "SQL_URL=mysql+pymysql://user:password@host:3306/database" \
-    ghcr.io/maexled/mystrom-python:master
+    ghcr.io/maexled/shelly-status-saver:master
 ```
