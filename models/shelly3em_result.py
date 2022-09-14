@@ -1,6 +1,3 @@
-import imp
-
-from pytz import timezone
 from base import Base
 from sqlalchemy import Column, ForeignKey, Integer, Float, DateTime
 from sqlalchemy.orm import relationship
