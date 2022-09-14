@@ -9,7 +9,7 @@ from models.shelly3em_device import Shelly3EMDevice
 from models.shelly3em_emeter_result import Shelly3EMEmeterResult
 from models.shelly3em_result import Shelly3EMResult
 
-@schedule.repeat(schedule.every(5).seconds)
+@schedule.repeat(schedule.every(1).minute)
 def trigger():
     for device in get_active_devices():
         request_data_and_store(device)
