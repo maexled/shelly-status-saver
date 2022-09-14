@@ -1,5 +1,5 @@
-# MyStrom - Python
-Requests data from MyStrom switch and stores in sql database.
+# Shelly status saver
+Requests data from Shelly 3EM and stores status in sql database.
 
 ## Environment Variables
 `SQL_URL` - the URL for database, e.g. `mysql+pymysql://user:password@host:3306/database`
